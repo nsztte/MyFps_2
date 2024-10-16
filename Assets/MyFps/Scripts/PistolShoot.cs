@@ -8,12 +8,16 @@ namespace MyFps
     {
         #region Variables
         private Animator animator;
-        //
+
+        //발사 효과
         public ParticleSystem muzzle;
         public AudioSource pistolShot;
 
         //public Transform camera;
         public Transform firePoint;
+
+        //공격 데미지
+        [SerializeField] private float attackDamage = 5f;
 
         //연사 딜레이
         [SerializeField] private float fireDelay = 0.5f;
@@ -48,7 +52,13 @@ namespace MyFps
             if(Physics.Raycast(firePoint.position, firePoint.TransformDirection(Vector3.forward), out hit, maxDistance))
             {
                 //적에게 데미지를 준다
-                Debug.Log("적에게 데미지를 준다");
+                Debug.Log($"{hit.transform.name}에게 데미지를 준다");
+
+                RobotController robot = hit.transform.GetComponent<RobotController>();
+                if( robot != null ) //로봇이 아닐 경우 제외
+                {
+                    robot.TakeDamage(attackDamage);
+                }
             }
 
             //슛 효과 - VFX, SFX
