@@ -19,7 +19,7 @@ namespace MyFps
 
         //Action
         #endregion
-
+        
         private void Update()
         {
             theDistance = PlayerCasting.distanceFromTarget;

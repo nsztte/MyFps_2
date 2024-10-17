@@ -22,7 +22,9 @@ namespace MyFps
         //연사 딜레이
         [SerializeField] private float fireDelay = 0.5f;
         private bool isFire = false;
-        public 
+
+        //임팩트
+        public GameObject hitImpactPrefab;
         #endregion
 
         // Start is called before the first frame update
@@ -38,7 +40,10 @@ namespace MyFps
             //슛
             if(Input.GetButtonDown("Fire") && !isFire)
             {
-                StartCoroutine(Shoot());
+                if(PlayerStats.Instance.UseAmmo(1) == true) //UseAmmo bool 형식의 함수
+                {
+                    StartCoroutine(Shoot());
+                }
             }
         }
 
@@ -52,12 +57,16 @@ namespace MyFps
             if(Physics.Raycast(firePoint.position, firePoint.TransformDirection(Vector3.forward), out hit, maxDistance))
             {
                 //적에게 데미지를 준다
-                Debug.Log($"{hit.transform.name}에게 데미지를 준다");
+                //Debug.Log($"{hit.transform.name}에게 데미지를 준다");
 
-                RobotController robot = hit.transform.GetComponent<RobotController>();
-                if( robot != null ) //로봇이 아닐 경우 제외
+                //hit 이펙트
+                GameObject effectGo = Instantiate(hitImpactPrefab, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(effectGo, 2f);
+
+                IDamagable damagable = hit.transform.GetComponent<IDamagable>();
+                if(damagable != null)
                 {
-                    robot.TakeDamage(attackDamage);
+                    damagable.TakeDamage(attackDamage);
                 }
             }
 
