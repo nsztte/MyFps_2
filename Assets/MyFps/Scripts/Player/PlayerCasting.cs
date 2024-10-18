@@ -9,9 +9,15 @@ namespace MyFps
     {
 
         #region Variables
-        public static float distanceFromTarget;
+        public static float distanceFromTarget/* = Mathf.Infinity*/;    //Mathf.Infinity: 캐릭터 비활성화시 레이캐스트 거리가 0이 되는 것 방지
         [SerializeField] private float toTarget;    //거리 숫자 보기
         #endregion
+
+        private void Start()
+        {
+            //초기화
+            //distanceFromTarget = Mathf.Infinity;
+        }
 
         // Update is called once per frame
         void Update()
