@@ -114,10 +114,10 @@ namespace MyFps
         private void Attack()
         {
             //플레이어
-            PlayerController player = thePlayer.GetComponent<PlayerController>();
-            if (player != null)
+            IDamagable damagable = thePlayer.GetComponent<IDamagable>();
+            if (damagable != null)
             {
-                player.TakeDamage(attackDamage);
+                damagable.TakeDamage(attackDamage);
             }
         }
 
