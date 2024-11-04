@@ -58,9 +58,6 @@ namespace MyFps
         {
             isDeath = true;
 
-            //현재 씬 저장
-            PlayerStats.Instance.NowSceneNumber = SceneManager.GetActiveScene().buildIndex;
-
             //메인씬01에서 총 소지시 총 비활성화
             if(SceneManager.GetActiveScene().name == "MainScene01" && PlayerStats.Instance.HasGun)
             {
