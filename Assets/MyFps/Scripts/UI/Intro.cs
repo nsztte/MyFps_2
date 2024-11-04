@@ -13,7 +13,7 @@ namespace MyFps
 
         //이동
         public CinemachineDollyCart cart;
-        [SerializeField] private float cartSpeed = 0.2f;
+        [SerializeField] private float cartSpeed = 0.1f;
 
         private bool[] isArrive;
         [SerializeField] private int wayPointIndex = 0; //이동 목표지점 인덱스

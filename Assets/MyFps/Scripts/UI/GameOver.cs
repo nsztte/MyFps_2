@@ -7,7 +7,7 @@ namespace MyFps
         #region Variables
         public SceneFader fader;
 
-        [SerializeField] private string loadToScene = "PlayScene";
+        [SerializeField] private string loadToScene = "MainMenu";
         #endregion
 
         private void Start()
@@ -22,13 +22,13 @@ namespace MyFps
 
         public void Retry()
         {
-            Debug.Log("Retry");
-            fader.FadeTo(loadToScene);
+            //죽기전 마지막 씬 불러오기
+            fader.FadeTo(PlayerStats.Instance.NowSceneNumber);
         }
 
         public void Menu()
         {
-            Debug.Log("Go to Menu");
+            fader.FadeTo(loadToScene);
         }
     }
 }

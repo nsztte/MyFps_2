@@ -96,7 +96,8 @@ namespace MyFps
         public void QuitGame()
         {
             //치트
-            PlayerPrefs.DeleteAll();
+            //PlayerPrefs.DeleteAll();
+            //SaveLoad.DeleteFile();
 
             Application.Quit();
         }

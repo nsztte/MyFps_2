@@ -390,7 +390,7 @@ MonoBehaviour:
   fader: {fileID: 1061616218}
   loadToScene: MainScene01
   cart: {fileID: 1665684913}
-  cartSpeed: 0.2
+  cartSpeed: 0.1
   wayPointIndex: 0
   cameraAnim: {fileID: 759668258}
   introUI: {fileID: 1205365958}
