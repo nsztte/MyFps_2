@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 
 namespace MyFps
@@ -17,16 +18,27 @@ namespace MyFps
         public GameObject optionUI;
         public GameObject CreditUI;
 
+        public GameObject loadGameButton;
+
         //Audio
         public AudioMixer audioMixer;
         public Slider bgmSlider;
-        public Slider sfxSlider; 
+        public Slider sfxSlider;
+
+        //저장되어 있는 씬 번호
+        //private int sceneNumber;
         #endregion
 
         private void Start()
         {
-            //시작하면 게임 저장데이터, 저장된 옵션값 불러오기
-            LoadOptions();
+            //게임 데이터 초기화
+            InitGameData();
+
+            //저장된 값이 있으면
+            if(PlayerStats.Instance.SceneNumber > 0)
+            {
+                loadGameButton.SetActive(true);
+            }
 
             //씬 페이드인 효과
             fader.FromFade();
@@ -38,8 +50,22 @@ namespace MyFps
             audioManager.Play("MenuBGM");
         }
 
+        private void InitGameData()
+        {
+            //게임 설정값: 저장된 옵션값 불러오기
+            LoadOptions();
+
+            //게임 플레이 데이터 로드
+            PlayData playData = SaveLoad.LoadData();
+            PlayerStats.Instance.PlayerStatsInit(playData);
+        }
+
+
         public void NewGame()
         {
+            //데이터 초기화
+            PlayerStats.Instance.PlayerStatsInit(null);
+
             audioManager.Stop(audioManager.Bgmsound);
             audioManager.Play("MenuButton");
 
@@ -48,7 +74,12 @@ namespace MyFps
 
         public void LoadGame()
         {
-            Debug.Log("LoadGame");
+            //Debug.Log($"Go to LoadGame {PlayerStats.Instance.SceneNumber}번 씬");
+
+            audioManager.Stop(audioManager.Bgmsound);
+            audioManager.Play("MenuButton");
+
+            fader.FadeTo(PlayerStats.Instance.SceneNumber);
         }
 
         public void Options()
@@ -67,7 +98,6 @@ namespace MyFps
             //치트
             PlayerPrefs.DeleteAll();
 
-            Debug.Log("QuitGame");
             Application.Quit();
         }
 

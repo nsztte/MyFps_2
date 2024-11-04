@@ -93,6 +93,7 @@ namespace MyFps
             if (distance <= attackRange)
             {
                 SetState(EnemyState.E_Attack);
+                agent.SetDestination(transform.position);   //공격중일때 이동하지 않고 그 자리에서 멈춤
             }
             else if(detectDistance > 0)
             {
